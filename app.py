@@ -113,7 +113,7 @@ col_despeje, col_grafico = st.columns(2)
 
 # Gráfico 1: Despeje Logarítmico
 with col_despeje:
-    st.subheader("1. Método de Despeje Logarítmico")
+    st.subheader("1. Método de despeje logarítmico")
     conteo_despeje = df_filtrado['Metodo_Despeje'].value_counts().reset_index()
     conteo_despeje.columns = ['Método', 'Frecuencia']
 
@@ -127,13 +127,13 @@ with col_despeje:
 
 # Gráfico 2: Uso de la Representación Gráfica
 with col_grafico:
-    st.subheader("2. Uso y Aplicación de la Gráfica")
+    st.subheader("2. Uso y aplicación de la gráfica")
     conteo_grafico = df_filtrado['Uso_Grafico'].value_counts().reset_index()
     conteo_grafico.columns = ['Uso', 'Frecuencia']
 
     fig_grafico = px.pie(
         conteo_grafico, names='Uso', values='Frecuencia',
-        title='Distribución de Uso de la Representación Gráfica',
+        title='Distribución de uso de la representación gráfica',
         color_discrete_sequence=px.colors.qualitative.Safe
     )
     st.plotly_chart(fig_grafico, use_container_width=True)
@@ -141,16 +141,16 @@ with col_grafico:
 st.markdown("---")
 
 ## 5. Análisis del Uso de la IA (Punto 3 de la Profesora)
-st.header("🤖 Análisis del Uso y Dificultades de la IA")
+st.header("🤖 Análisis del uso y dificultades de la IA")
 
 # 5.1. Gráfico de Histograma de Notas
-st.subheader("Distribución General de Notas")
-fig_hist = px.histogram(df_filtrado, x='Nota_Final', nbins=10, title="Frecuencia de Notas Finales")
-fig_hist.update_layout(xaxis_title="Nota Final", yaxis_title="Número de Estudiantes")
+st.subheader("Distribución general de notas")
+fig_hist = px.histogram(df_filtrado, x='Nota_Final', nbins=10, title="Frecuencia de notas finales")
+fig_hist.update_layout(xaxis_title="Nota Final", yaxis_title="Número de estudiantes")
 st.plotly_chart(fig_hist, use_container_width=True)
 
 # 5.2. Resumen de Desventajas/Dificultades de la IA
-st.subheader("Resumen de Desventajas y Dificultades al Usar la IA")
+st.subheader("Resumen de desventajas y dificultades al usar la IA")
 
 # **CORRECCIÓN: Filtrar correctamente estudiantes que usaron IA (Sí o Regular)**
 df_ia = df_filtrado[df_filtrado['Uso_IA'].isin(['Sí', 'Regular'])]
@@ -163,8 +163,8 @@ if not df_ia.empty:
         st.dataframe(df_ia_con_comentarios[['Nombre', 'Uso_IA', 'Expli_Uso_IA']],
                      column_config={
                          "Nombre": st.column_config.TextColumn("Estudiante"),
-                         "Uso_IA": st.column_config.TextColumn("Nivel de Uso"),
-                         "Expli_Uso_IA": st.column_config.TextColumn("Comentarios sobre Uso de IA")
+                         "Uso_IA": st.column_config.TextColumn("Nivel de uso"),
+                         "Expli_Uso_IA": st.column_config.TextColumn("Comentarios sobre uso de IA")
                      },
                      hide_index=True, use_container_width=True)
     else:
@@ -173,10 +173,10 @@ else:
     st.info("No hay datos de estudiantes que reportaron haber usado la IA en este grupo.")
 
 ## 6. Retroalimentación Individual (Acceso Fácil)
-st.header("👤 Retroalimentación Individual y Calificación")
+st.header("👤 Retroalimentación individual y calificación")
 
 estudiante_seleccionado = st.selectbox(
-    "Seleccione el Estudiante para ver la retroalimentación:",
+    "Seleccione el estudiante para ver la retroalimentación:",
     df_filtrado['Nombre'].unique()
 )
 
@@ -197,7 +197,7 @@ if estudiante_seleccionado:
             
             # Verificar si parece un link (contiene http o .com/.pdf)
             if 'http' in texto_link or '.com' in texto_link or '.pdf' in texto_link:
-                st.markdown(f"📄 [Ver Retroalimentación/Foto]({texto_link})", unsafe_allow_html=True)
+                st.markdown(f"📄 [Ver retroalimentación]({texto_link})", unsafe_allow_html=True)
             else:
                 st.info(f"📄 Documento: {texto_link}")
         else:
@@ -213,3 +213,4 @@ if estudiante_seleccionado:
         st.markdown(f"**Uso de IA ({datos_estudiante['Uso_IA']}):**")
 
         st.info(datos_estudiante['Expli_Uso_IA'])
+
