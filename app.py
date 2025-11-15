@@ -191,10 +191,17 @@ if estudiante_seleccionado:
         st.metric("Nota Final", datos_estudiante['Nota_Final'])
 
         retro_url = datos_estudiante['Link_Retro']
-        if pd.notna(retro_url):
-            st.markdown(f"**Link de la Retroalimentación/Foto:** [Abrir Documento]({retro_url})")
+        if pd.notna(retro_url) and str(retro_url).strip() != '':
+            # Limpiar el texto del link
+            texto_link = str(retro_url).strip()
+            
+            # Verificar si parece un link (contiene http o .com/.pdf)
+            if 'http' in texto_link or '.com' in texto_link or '.pdf' in texto_link:
+                st.markdown(f"📄 [Ver Retroalimentación/Foto]({texto_link})", unsafe_allow_html=True)
+            else:
+                st.info(f"📄 Documento: {texto_link}")
         else:
-            st.warning("⚠️ URL de retroalimentación pendiente.")
+            st.info("⚠️ Link de retroalimentación no disponible")
 
     with col_feedback:
         st.markdown(f"**Despeje Logarítmico ({datos_estudiante['Metodo_Despeje']}):**")
@@ -204,4 +211,5 @@ if estudiante_seleccionado:
         st.info(datos_estudiante['Expli_Grafico'])
 
         st.markdown(f"**Uso de IA ({datos_estudiante['Uso_IA']}):**")
+
         st.info(datos_estudiante['Expli_Uso_IA'])
