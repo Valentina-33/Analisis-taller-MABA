@@ -163,7 +163,7 @@ if not df_ia.empty:
         st.dataframe(df_ia_con_comentarios[['Nombre', 'Uso_IA', 'Expli_Uso_IA']],
                      column_config={
                          "Nombre": st.column_config.TextColumn("Estudiante"),
-                         "Uso_IA": st.column_config.TextColumn("Nivel de uso"),
+                         "Uso_IA": st.column_config.TextColumn("Uso IA"),
                          "Expli_Uso_IA": st.column_config.TextColumn("Comentarios sobre uso de IA")
                      },
                      hide_index=True, use_container_width=True)
@@ -213,4 +213,5 @@ if estudiante_seleccionado:
         st.markdown(f"**Uso de IA ({datos_estudiante['Uso_IA']}):**")
 
         st.info(datos_estudiante['Expli_Uso_IA'])
+
 
